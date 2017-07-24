@@ -5,7 +5,15 @@ class ReadExcel():
         'sheet': []
     }
 
-    def setPath():
+    def __init__(self):
+        filePath = self.setPath()
+        fileData = self.getFile(filePath)
+        self.data = self.getAllSheet(fileData, self.data)
+        self.data = self.getAllSheetHeader(fileData, self.data)
+        self.data = self.getAllSheetContext(fileData, self.data)
+        print('End ReadExcel().')
+
+    def setPath(self):
         print('Please enter the path for excel file.')
         while True:
             inputPath = input()
@@ -25,8 +33,8 @@ class ReadExcel():
         return excelFile
 
     def getAllSheet(self, fileContext, data):
-        allSheet = fileContext[fileContext.get_sheet_names()]
-        for i in len(allSheet):
+        allSheet = fileContext.get_sheet_names()
+        for i in allSheet:
             data['sheet'].append(i)
         return data
 
@@ -47,7 +55,7 @@ class ReadExcel():
 
         text = ''
         for column in range(26):
-            text = fileContext['A%d' % (column+1)].value
+            text = fileContext['%s1' % chr(ord('A')+column)].value
             if self.isValidText(text):
                 sheetHeader.append(text)
         return sheetHeader
@@ -62,17 +70,19 @@ class ReadExcel():
             intTargetHeaderLength = len(data['header'][i])
 
             sheetContext = self.getSheetContext(targetSheet, intTargetHeaderLength)
+            data['context'].append(sheetContext)
+        return data
 
     def getSheetContext(self, fileContext, sheetHeaderLength):
         sheetContext = []
 
-        row = 1
+        row = 2 # skip row 1 as header.
         while True:
-            text = fileContext['%s1' % chr(ord('A') + row)].value
+            text = fileContext['A%d' % row].value
             if self.isValidText(text):
                 rowContext = []
                 for column in range(sheetHeaderLength):
-                    text = fileContext['%s%d' % (chr(ord('A')+row), (column+1))].value
+                    text = fileContext['%s%d' % (chr(ord('A')+column), row)].value
                     rowContext.append(text)
                 sheetContext.append(rowContext)
                 row += 1
@@ -81,11 +91,11 @@ class ReadExcel():
         return sheetContext
 
     def isValidText(self, text):
-        if text != none:
+        if text != None:
             return True
         return False
 
 # Demo
 if __name__ == '__main__':
-    result == ReadExcel()
+    result = ReadExcel()
     print(result.data)

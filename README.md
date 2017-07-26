@@ -29,7 +29,14 @@
 
 > #### Progress:
 >
-> - [ ] Manual find the path of .xlsx file.
+> - [x] Manual find the path of .xlsx file.
 >
-> - [ ] Fetch sheets, headers, and contexts from .xlsx file.
+> - [x] Fetch sheets, headers, and contexts from .xlsx file.
 >
+> - [ ] Convert dict (Python) into json (JavaScript).
+>
+> - [ ] Convert json into dict.
+>
+> - [ ] Insert sheets, headers, and contexts into .xlsx file.
+>
+> - [ ] Set filename for save.

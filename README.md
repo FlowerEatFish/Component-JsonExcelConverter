@@ -37,6 +37,6 @@
 >
 > - [ ] Convert json into dict.
 >
-> - [ ] Insert sheets, headers, and contexts into .xlsx file.
+> - [x] Insert sheets, headers, and contexts into .xlsx file.
 >
 > - [ ] Set filename for save.

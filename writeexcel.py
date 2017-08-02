@@ -2,15 +2,27 @@ from openpyxl import Workbook
 
 class WriteExcel():
     def __init__(self, file):
-        self.writeAllData(file)
+        fileName = self.setFileName()
+        self.writeAllData(file, fileName)
 
-    def writeAllData(self, data):
+    def setFileName(self):
+        print('Please enter save file name you want:')
+        fileName = input()
+        fileName = self.correctFileName(fileName)
+        return fileName
+		
+    def correctFileName(self, fileName):
+        if fileName.find('.xlsx') != -1:
+            fileName += '.xlsx'
+        return fileName
+	
+    def writeAllData(self, data, fileName):
         wb = Workbook()
         saveSheet = self.setSaveSheetTemplate(data)
         saveSheet = self.writeSheetName(wb, saveSheet, data)
         saveSheet = self.writeSheetHeader(saveSheet, data)
         saveSheet = self.writeSheetContext(saveSheet, data)
-        wb.save('document.xlsx')
+        wb.save('fileName')
 
     def setSaveSheetTemplate(self, data):
         listSaveTemplate = []

@@ -4,25 +4,36 @@ class WriteExcel():
     def __init__(self, file):
         fileName = self.setFileName()
         self.writeAllData(file, fileName)
+        print('End WriteExcel().')
 
     def setFileName(self):
         print('Please enter save file name you want:')
-        fileName = input()
-        fileName = self.correctFileName(fileName)
-        return fileName
-		
-    def correctFileName(self, fileName):
-        if fileName.find('.xlsx') != -1:
+        while True:
+            fileName = input()
+            if self.isValidName(fileName):
+                fileName = self.correctFileType(fileName)
+                return fileName
+            print('Find invalid text. Please enter other file name.')
+
+    def isValidName(self, fileName):
+        validText = 'abcdefghijklmnopqrstuvwxyz0123456789-_'
+        for i in fileName:
+            if validText.find(i) == -1:
+                return False
+        return True
+
+    def correctFileType(self, fileName):
+        if fileName.find('.xlsx') == -1:
             fileName += '.xlsx'
         return fileName
-	
+
     def writeAllData(self, data, fileName):
         wb = Workbook()
         saveSheet = self.setSaveSheetTemplate(data)
         saveSheet = self.writeSheetName(wb, saveSheet, data)
         saveSheet = self.writeSheetHeader(saveSheet, data)
         saveSheet = self.writeSheetContext(saveSheet, data)
-        wb.save('fileName')
+        wb.save(fileName)
 
     def setSaveSheetTemplate(self, data):
         listSaveTemplate = []

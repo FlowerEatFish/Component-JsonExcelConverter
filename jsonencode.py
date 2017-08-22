@@ -3,8 +3,8 @@ import json
 class JsonEncoder():
     def __init__(self, data):
         if type(data) == dict:
-            return json.dump(data, separators=(',',':')
-        print('Failure: The data you enter isn\'t dict type.)
+            return json.dumps(data)
+        print('Failure: The data you enter isn\'t dict type.')
 
 class JsonDecoder():
     def __init__(self, data):
